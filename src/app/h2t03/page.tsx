@@ -1,20 +1,19 @@
 "use client"
-export default function Home() {
+import {FC, useRef, useState} from "react";
+import {ColorWidget} from "./ColorWidget";
+
+const Page: FC = () => {
+    const inputRef = useRef<HTMLInputElement>(null)
+    const [color, setColor] = useState("");
     return (
-        <div className="hlavni w-screen inline-flex flex-col items-center justify-start gap-24">
-            <p className="text-xl flex">Color Shower</p>
-            <div className="vyber flex justify-between w-3/5 gap-24">
-                <input className="flex border-4 border-black" type="text"/>
-                <button className="flex bg-green-500 p-6 rounded-[10px]">Show</button>
-            </div>
-
-                <div className="velky w-24 h-24 bg-[#FFB200] justify-center gap-24"></div>
-                <div className="maly inline-flex flex-row gap-6">
-                    <div className="prvni bg-red-500 w-12 h-12"></div>
-                    <div className="druhy bg-gray-500 w-12 h-12"></div>
-                    <div className="treti bg-blue-500 w-12 h-12"></div>
-                </div>
-
+        <div className="flex flex-col items-center gap-16 p-64">
+            <h1 className="text-4xl">Color shower</h1>
+        <div className="flex flex-row justify-between w-full">
+            <input ref={inputRef} className="border border-black w-96 h-[4.875rem]"/>
+            <button onClick={() => setColor(inputRef.current!.value)} className="p-6 bg-[#8EFF7B] rounded-xl text-2xl">Show</button>
+        </div>
+        <ColorWidget colorInput={color}/>
         </div>
     );
 }
+export default Page;
