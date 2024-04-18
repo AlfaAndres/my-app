@@ -2,50 +2,80 @@
 @tailwind components;
 @tailwind utilities;
 
-body{
-  background: white;
+.popup-open {
+  position: fixed; /* Position the popup absolutely */
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Adjust for centering */
+  z-index: 100; /* Ensure it's above other elements */
 }
 
-.maly{
+.popup-content {
+  background-color: white; /* Set a background color */
+  padding: 20px;
   border-radius: 5px;
-  box-shadow: 0 0 4px 0 black;
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+.content-wrapper {
+  pointer-events: none; /* Disable clicks while popup is open */
+}
+.popup-content h2 {
+  margin-bottom: 20px; /* Add space between text and input */
 }
 
-.maly button{
-  background: #ffa200;
-  color: white;
-  padding: 4px;
+.popup-actions {
+  display: flex; /* Use flexbox for layout */
+  justify-content: space-between; /* Distribute buttons evenly */
+  align-items: flex-end; /* Align buttons to the bottom */
+}
+
+.popup-actions button:first-child {
+  margin-right: 20px; /* Add space between buttons */
+}
+
+.popup-open .popup-actions button {
+  padding: 15px 30px; /* Adjust padding as needed */
+  font-size: 18px; /* Adjust font size as needed */
+}
+.popup-open .popup-content {
+  display: flex; /* Use flexbox */
+  flex-direction: column; /* Arrange content vertically */
+  align-items: center; /* Center content horizontally */
+  justify-content: center; /* Center content vertically */
+  min-height: 200px; /* Set a minimum height */
+}
+.popup-open .popup-actions button {
+  background-color: #090909;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
   border-radius: 5px;
+  cursor: pointer;
+  margin: 10px 0;
+  transition: background-color 0.3s ease;
 }
 
-.flex{
-  display: flex;
+.popup-open .popup-actions button:hover {
+  background-color: #4aec08;
 }
-
-.flex-row{
-  flex-direction: row;
-}
-.flex-col{
-  flex-direction: column;
-}
-.velky{
+.popup-open .popup-input {
+  background-color: #fff;
+  border: 2px solid #000000;
   border-radius: 5px;
-  box-shadow: 0 0 4px 0 black;
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  padding: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  outline: none;
+  font-size: 16px;
 }
 
-.w-32{
-  width: 32rem;
+.popup-open .popup-input:focus {
+  border-color: #000000;
 }
-
-.h-32{
-  height: 32rem;
+.popup-open .popup-content {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.popup-open .popup-content h2 {
+  color: #050505;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
