@@ -1,13 +1,9 @@
 "use client"
-import ReactDOM from 'react-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faArrowLeft, faBook, faFile, faGear, faLink, faPrint, fas, faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
-import {FC, useState} from "react";
+import { faArrowLeft, faBook, faFile, faGear, faLink, faPrint, fas, faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { FC, useState } from "react";
 
 const Popup = ({ isOpen, onClose, onSubmit }) => {
-    // Add "use client" directive here
-    'use client';
-
     const [newItemName, setNewItemName] = useState('');
 
     const handleClose = () => {
@@ -25,6 +21,12 @@ const Popup = ({ isOpen, onClose, onSubmit }) => {
         }
     };
 
+    const handleKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            handleSubmit(e);
+        }
+    };
+
     return (
         <div className={isOpen ? 'popup-open' : 'popup-closed'}>
             <div className="popup-content">
@@ -35,6 +37,7 @@ const Popup = ({ isOpen, onClose, onSubmit }) => {
                         placeholder="Název poznámky"
                         value={newItemName}
                         onChange={(e) => setNewItemName(e.target.value)}
+                        onKeyPress={handleKeyPress}
                         className="popup-input"
                     />
                     <div className="popup-actions">
@@ -58,6 +61,7 @@ const ConfirmationModal = ({ isOpen, onClose, onConfirm }) => {
                         onConfirm();
                         onClose();
                     }}>Ano</button>
+                    <div style={{ margin: '30px' }}></div>
                     <button onClick={onClose}>Ne</button>
                 </div>
             </div>
@@ -65,16 +69,16 @@ const ConfirmationModal = ({ isOpen, onClose, onConfirm }) => {
     );
 };
 
-const page: FC = () => {
+const Page: FC = () => {
     const [isExpanded, setIsExpanded] = useState(false);
     const [items, setItems] = useState([
         { id: 1, name: "I4 HS" },
         { id: 2, name: "I3 HS" },
         { id: 3, name: "I2 HS" },
     ]);
-    const [isModalOpen, setIsModalOpen] = useState(false); // Initial state for modal
+    const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [selectedNoteId, setSelectedNoteId] = useState(null);
-    const [newItemName, setNewItemName] = useState('');
 
     const addItem = (newItemName) => {
         setItems([...items, { id: items.length + 1, name: newItemName }]);
@@ -82,16 +86,17 @@ const page: FC = () => {
 
     const removeItem = (itemId) => {
         setSelectedNoteId(itemId);
-        setIsModalOpen(true); // Open the confirmation modal directly
+        setIsDeleteModalOpen(true);
     };
 
     const closeModal = () => {
-        setIsModalOpen(false);
+        setIsAddModalOpen(false);
+        setIsDeleteModalOpen(false);
     };
 
     const confirmDelete = () => {
         setItems(items.filter((item) => item.id !== selectedNoteId));
-        setIsModalOpen(false); // Close the modal after deletion
+        setIsDeleteModalOpen(false);
     };
 
     return (
@@ -128,7 +133,7 @@ const page: FC = () => {
                             </button>
                         </div>
                     ))}
-                    <button onClick={() => setIsModalOpen(true)} // Set isModalOpen to true directly
+                    <button onClick={() => setIsAddModalOpen(true)}
                             className="w-full h-7 px-4 py-1.5 justify-start items-center gap-2.5 inline-flex cursor-pointer hover:bg-gray-500">
                         <FontAwesomeIcon icon={faPlus} size="lg"/>
                         <p className="text-neutral-900 text-opacity-60 text-xs font-normal font-['Inter'] cursor-pointer">
@@ -137,18 +142,18 @@ const page: FC = () => {
                     </button>
                 </div>
             )}
-            {isModalOpen && (
+            {isAddModalOpen && (
                 <Popup
-                    isOpen={isModalOpen}
-                    onClose={closeModal}
+                    isOpen={isAddModalOpen}
+                    onClose={() => setIsAddModalOpen(false)}
                     onSubmit={addItem}
                 />
             )}
-            {isModalOpen && (
+            {isDeleteModalOpen && (
                 <ConfirmationModal
-                    isOpen={isModalOpen}
-                    onClose={closeModal}
-                    onConfirm={() => confirmDelete()} // Call confirmDelete function on confirmation
+                    isOpen={isDeleteModalOpen}
+                    onClose={() => setIsDeleteModalOpen(false)}
+                    onConfirm={confirmDelete}
                 />
             )}
             <div className="w-full h-screen flex-col justify-start items-center gap-32 inline-flex">
@@ -213,4 +218,4 @@ const page: FC = () => {
     );
 }
 
-export default page
+export default Page;

@@ -3,46 +3,46 @@
 @tailwind utilities;
 
 .popup-open {
-  position: fixed; /* Position the popup absolutely */
-  top: 50%; /* Center vertically */
-  left: 50%; /* Center horizontally */
-  transform: translate(-50%, -50%); /* Adjust for centering */
-  z-index: 100; /* Ensure it's above other elements */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
 }
 
 .popup-content {
-  background-color: white; /* Set a background color */
+  background-color: white;
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 .content-wrapper {
-  pointer-events: none; /* Disable clicks while popup is open */
+  pointer-events: none;
 }
 .popup-content h2 {
-  margin-bottom: 20px; /* Add space between text and input */
+  margin-bottom: 20px;
 }
 
 .popup-actions {
-  display: flex; /* Use flexbox for layout */
-  justify-content: space-between; /* Distribute buttons evenly */
-  align-items: flex-end; /* Align buttons to the bottom */
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
 }
 
 .popup-actions button:first-child {
-  margin-right: 20px; /* Add space between buttons */
+  margin-right: 20px;
 }
 
 .popup-open .popup-actions button {
-  padding: 15px 30px; /* Adjust padding as needed */
-  font-size: 18px; /* Adjust font size as needed */
+  padding: 15px 30px;
+  font-size: 18px;
 }
 .popup-open .popup-content {
-  display: flex; /* Use flexbox */
-  flex-direction: column; /* Arrange content vertically */
-  align-items: center; /* Center content horizontally */
-  justify-content: center; /* Center content vertically */
-  min-height: 200px; /* Set a minimum height */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
 }
 .popup-open .popup-actions button {
   background-color: #090909;
@@ -79,3 +79,5 @@
   color: #050505;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
+
+
